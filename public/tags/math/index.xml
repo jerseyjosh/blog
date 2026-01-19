@@ -2,18 +2,18 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>Math on jmg</title>
-    <link>//localhost:1313/tags/math/</link>
+    <link>/tags/math/</link>
     <description>Recent content in Math on jmg</description>
     <generator>Hugo</generator>
     <language>en-us</language>
     <lastBuildDate>Fri, 09 Jan 2026 22:55:03 +0000</lastBuildDate>
-    <atom:link href="//localhost:1313/tags/math/index.xml" rel="self" type="application/rss+xml" />
+    <atom:link href="/tags/math/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>backpropagation for dorks</title>
-      <link>//localhost:1313/posts/backpropagation-math/</link>
+      <link>/posts/backpropagation-math/</link>
       <pubDate>Fri, 09 Jan 2026 22:55:03 +0000</pubDate>
-      <guid>//localhost:1313/posts/backpropagation-math/</guid>
-      <description>&lt;p&gt;this is a companion post to &lt;a href=&#34;//localhost:1313/posts/first-post/&#34;&gt;neural nets from scratch in rust&lt;/a&gt;, covering the mathematical foundations of backpropagation.&lt;/p&gt;&#xA;&lt;h1 id=&#34;the-setup&#34;&gt;the setup&lt;/h1&gt;&#xA;&lt;h2&gt;$ y = f(WX + b) $&lt;/h2&gt;&#xA;&lt;p&gt;the holy grail formula that underpins neural networks is just a linear transform that you then apply a differentiable nonlinear transformation to.&lt;/p&gt;&#xA;&lt;p&gt;lets consider a single layer neural network and define our shapes:&lt;/p&gt;&#xA;&lt;ul&gt;&#xA;&lt;li&gt;$X \in \mathbb{R}^{N \times P}$ is our input data, where $N$ is the number of samples and $P$ is the feature space dimension&lt;/li&gt;&#xA;&lt;li&gt;$W \in \mathbb{R}^{P \times C}$ is our weight matrix, where $C$ is the number of output classes&lt;/li&gt;&#xA;&lt;li&gt;$b \in \mathbb{R}^{1 \times C}$ is our bias vector&lt;/li&gt;&#xA;&lt;li&gt;$y \in \mathbb{R}^{N \times C}$ is our output logits&lt;/li&gt;&#xA;&lt;/ul&gt;&#xA;&lt;p&gt;the forward pass computes:&lt;/p&gt;</description>
+      <guid>/posts/backpropagation-math/</guid>
+      <description>&lt;p&gt;this is a companion post to &lt;a href=&#34;/posts/first-post/&#34;&gt;neural nets from scratch in rust&lt;/a&gt;, covering the mathematical foundations of backpropagation.&lt;/p&gt;&#xA;&lt;h1 id=&#34;the-setup&#34;&gt;the setup&lt;/h1&gt;&#xA;&lt;h2&gt;$ y = f(WX + b) $&lt;/h2&gt;&#xA;&lt;p&gt;the holy grail formula that underpins neural networks is just a linear transform that you then apply a differentiable nonlinear transformation to.&lt;/p&gt;&#xA;&lt;p&gt;lets consider a single layer neural network and define our shapes:&lt;/p&gt;&#xA;&lt;ul&gt;&#xA;&lt;li&gt;$X \in \mathbb{R}^{N \times P}$ is our input data, where $N$ is the number of samples and $P$ is the feature space dimension&lt;/li&gt;&#xA;&lt;li&gt;$W \in \mathbb{R}^{P \times C}$ is our weight matrix, where $C$ is the number of output classes&lt;/li&gt;&#xA;&lt;li&gt;$b \in \mathbb{R}^{1 \times C}$ is our bias vector&lt;/li&gt;&#xA;&lt;li&gt;$y \in \mathbb{R}^{N \times C}$ is our output logits&lt;/li&gt;&#xA;&lt;/ul&gt;&#xA;&lt;p&gt;the forward pass computes:&lt;/p&gt;</description>
     </item>
   </channel>
 </rss>

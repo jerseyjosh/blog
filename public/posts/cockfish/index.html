@@ -1,0 +1,692 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  
+    <title>cockfish :: jmg</title>
+  
+  <meta http-equiv="content-type" content="text/html; charset=utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="description" content="training a chess engine from scratch" />
+<meta name="keywords" content=", " />
+
+  <meta name="robots" content="noodp" />
+
+<link rel="canonical" href="/posts/cockfish/" />
+
+
+
+
+
+  
+  <link rel="stylesheet" href="/css/buttons.min.86f6b4c106b6c6eb690ae5203d36b442c1f66f718ff4e8164fa86cf6c61ad641.css">
+
+  
+  <link rel="stylesheet" href="/css/code.min.d529ea4b2fb8d34328d7d31afc5466d5f7bc2f0bc9abdd98b69385335d7baee4.css">
+
+  
+  <link rel="stylesheet" href="/css/fonts.min.5bb7ed13e1d00d8ff39ea84af26737007eb5051b157b86fc24487c94f3dc8bbe.css">
+
+  
+  <link rel="stylesheet" href="/css/footer.min.eb8dfc2c6a7eafa36cd3ba92d63e69e849e2200e0002a228d137f236b09ecd75.css">
+
+  
+  <link rel="stylesheet" href="/css/gist.min.a751e8b0abe1ba8bc53ced52a38b19d8950fe78ca29454ea8c2595cf26aad5c0.css">
+
+  
+  <link rel="stylesheet" href="/css/header.min.75c7eb0e2872d95ff48109c6647d0223a38db52e2561dd87966eb5fc7c6bdac6.css">
+
+  
+  <link rel="stylesheet" href="/css/main.min.36833afd348409fc6c3d09d0897c5833d9d5bf1ff31f5e60ea3ee42ce2b1268c.css">
+
+  
+  <link rel="stylesheet" href="/css/menu.min.3c17467ebeb3d38663dce68f71f519901124fa5cbb4519b2fb0667a21e9aca39.css">
+
+  
+  <link rel="stylesheet" href="/css/pagination.min.bbb986dbce00a5ce5aca0504b7925fc1c581992a4bf57f163e5d69cc1db7d836.css">
+
+  
+  <link rel="stylesheet" href="/css/post.min.e6dddd258e64c83e05cec0cd49c05216742d42fc8ecbfbe6b67083412b609bd3.css">
+
+  
+  <link rel="stylesheet" href="/css/syntax.min.a0773cce9310cb6d8ed23e50f005448facf29a53001b57e038828daa466b25c0.css">
+
+  
+  <link rel="stylesheet" href="/css/terminal.min.e24bf84cafb9e94502324a0c4264d65e9ed1870838db3e47393dfaa83dd5abb4.css">
+
+  
+  <link rel="stylesheet" href="/css/terms.min.b81791663c3790e738e571cdbf802312390d30e4b1d8dc9d814a5b5454d0ac11.css">
+
+
+
+
+<link rel="stylesheet" href="/style.css">
+
+
+<link rel="shortcut icon" href="/favicon.png">
+<link rel="apple-touch-icon" href="/apple-touch-icon.png">
+
+
+<meta name="twitter:card" content="summary" />
+
+
+
+<meta property="og:locale" content="en" />
+<meta property="og:type" content="article" />
+<meta property="og:title" content="cockfish">
+<meta property="og:description" content="training a chess engine from scratch" />
+<meta property="og:url" content="/posts/cockfish/" />
+<meta property="og:site_name" content="jmg" />
+
+  
+  
+  <meta property="og:image" content="/">
+
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="627">
+
+
+  <meta property="article:published_time" content="2026-01-19 21:07:23 &#43;0000 UTC" />
+
+
+
+
+
+
+
+
+
+
+  <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@4/tex-mml-chtml.js"></script>
+
+<script>
+  MathJax = {
+    tex: {
+      displayMath: [['$$', '$$']],
+      inlineMath: [['$', '$']]
+    },
+    loader:{
+      load: ['ui/safe']
+    },
+  };
+</script>
+
+
+
+
+</head>
+<body>
+
+
+<div class="container center">
+
+  <header class="header">
+  <div class="header__inner">
+    <div class="header__logo">
+      <a href="/">
+  <div class="logo">
+    &lt;jmg&gt;
+  </div>
+</a>
+
+    </div>
+    
+      <ul class="menu menu--mobile">
+  <li class="menu__trigger">Menu&nbsp;▾</li>
+  <li>
+    <ul class="menu__dropdown">
+      
+        
+          <li><a href="/posts">posts</a></li>
+        
+      
+        
+          <li><a href="/tags">tags</a></li>
+        
+      
+        
+          <li><a href="https://x.com/flowuninformed">twitter</a></li>
+        
+      
+      
+    </ul>
+  </li>
+</ul>
+
+    
+    
+  </div>
+  
+    <nav class="navigation-menu">
+  <ul class="navigation-menu__inner menu--desktop">
+    
+      
+        
+          <li><a href="/posts" >posts</a></li>
+        
+      
+        
+          <li><a href="/tags" >tags</a></li>
+        
+      
+        
+          <li><a href="https://x.com/flowuninformed" >twitter</a></li>
+        
+      
+      
+    
+  </ul>
+</nav>
+
+  
+</header>
+
+
+  <div class="content">
+    
+<article class="post">
+  <h1 class="post-title">
+    <a href="/posts/cockfish/">cockfish</a>
+  </h1>
+  <div class="post-meta"><time class="post-date">2026-01-19</time><span class="post-reading-time">12 min read (2432 words)</span></div>
+
+  
+    <span class="post-tags">
+      
+      #<a href="/tags/ml/">ml</a>&nbsp;
+      
+      #<a href="/tags/chess/">chess</a>&nbsp;
+      
+      #<a href="/tags/neural-networks/">neural networks</a>&nbsp;
+      
+    </span>
+  
+  
+
+
+  
+
+  <div class="post-content"><div>
+        <p>chess engines are very strong nowadays, and work through mysterious magic. courtsey of chatgpt:</p>
+<blockquote>
+<p>Stockfish works by searching billions of chess positions per second using alpha-beta–pruned minimax guided by finely tuned evaluation heuristics (and NNUE), and it’s so effective because this combination turns raw computing power into extremely accurate position assessment and move selection.</p>
+</blockquote>
+<p>basically, if we have some way of quantifying how good a position is in a score (an evaluation function), and we have an efficient way to search move sequences (alpha-beta pruned minimax), then we can just search a bunch of moves and pick the ones that lead to the best outcome.</p>
+<p>stockfish does the evaluation function with a big set of handcrafted weights, specifically encoding known advantages in chess like:</p>
+<ul>
+<li>king safety</li>
+<li>space advantages</li>
+<li>queens and rooks supporting each other</li>
+<li>central control</li>
+<li>yada yada yada&hellip;</li>
+</ul>
+<p>my question is, can a neural network learn this stuff without being told it beforehand? i.e. if i&rsquo;m some chump who doesn&rsquo;t know a thing about chess beyond the rules, can i make a reasonable engine?</p>
+<h1 id="setup">setup<a href="#setup" class="hanchor" ariaLabel="Anchor">#</a> </h1>
+<h2 id="minimax">minimax<a href="#minimax" class="hanchor" ariaLabel="Anchor">#</a> </h2>
+<p>the minimax algorithm is a classic leetcode recursive depth first search problem, with the slight added complexity in the sense that when we pick a move to maximise our score, we have to assume the opponent in their turn is going to pick the move that maximises <em>theirs</em>, i.e. by minimising ours.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span><span style="color:#66d9ef">def</span> <span style="color:#a6e22e">minimax</span>(position, depth, maximizing_player):
+</span></span><span style="display:flex;"><span>    <span style="color:#75715e"># base case: reached max depth or game over</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">if</span> depth <span style="color:#f92672">==</span> <span style="color:#ae81ff">0</span> <span style="color:#f92672">or</span> is_terminal(position):
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">return</span> evaluate(position)
+</span></span><span style="display:flex;"><span>    
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">if</span> maximizing_player:
+</span></span><span style="display:flex;"><span>        max_eval <span style="color:#f92672">=</span> <span style="color:#f92672">-</span>infinity
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">for</span> move <span style="color:#f92672">in</span> get_legal_moves(position):
+</span></span><span style="display:flex;"><span>            new_position <span style="color:#f92672">=</span> make_move(position, move)
+</span></span><span style="display:flex;"><span>            eval <span style="color:#f92672">=</span> minimax(new_position, depth <span style="color:#f92672">-</span> <span style="color:#ae81ff">1</span>, <span style="color:#66d9ef">False</span>)
+</span></span><span style="display:flex;"><span>            max_eval <span style="color:#f92672">=</span> max(max_eval, eval)
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">return</span> max_eval
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">else</span>:
+</span></span><span style="display:flex;"><span>        min_eval <span style="color:#f92672">=</span> infinity
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">for</span> move <span style="color:#f92672">in</span> get_legal_moves(position):
+</span></span><span style="display:flex;"><span>            new_position <span style="color:#f92672">=</span> make_move(position, move)
+</span></span><span style="display:flex;"><span>            eval <span style="color:#f92672">=</span> minimax(new_position, depth <span style="color:#f92672">-</span> <span style="color:#ae81ff">1</span>, <span style="color:#66d9ef">True</span>)
+</span></span><span style="display:flex;"><span>            min_eval <span style="color:#f92672">=</span> min(min_eval, eval)
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">return</span> min_eval
+</span></span></code></pre></div><p>the problem with this is that recursive functions, especially in chess where the number of legal moves is large, are slow.</p>
+<p>we get around this with <strong>caching</strong>. chess boards can have a unique string representation, making global caching of positions that have already been seen, along with our estimated evaluation for it, already cached. if we run into a position where we know from prior search the opponent will have the advantage with optimal play, we can ignore searching it again.</p>
+<h2 id="data">data<a href="#data" class="hanchor" ariaLabel="Anchor">#</a> </h2>
+<p><a href="lichess.org">lichess</a> kindly makes their games database available for download, so i downloaded 18gb of games + stockfish evaluations for december 2025 in a zstd-compressed JSONL file. this format allows me to stream it through memory chunk by chunk.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span><span style="color:#66d9ef">class</span> <span style="color:#a6e22e">ZstdStreamer</span>:
+</span></span><span style="display:flex;"><span>    <span style="color:#e6db74">&#34;&#34;&#34;
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">    A class for streaming the Lichesss DB Eval dataset from a Zstandard-compressed JSONL file.
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">    Yields chunks of parsed JSON objects
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">    &#34;&#34;&#34;</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">def</span> <span style="color:#a6e22e">__init__</span>(self, path: str):
+</span></span><span style="display:flex;"><span>        self<span style="color:#f92672">.</span>path <span style="color:#f92672">=</span> path
+</span></span><span style="display:flex;"><span>        self<span style="color:#f92672">.</span>dctx <span style="color:#f92672">=</span> zstandard<span style="color:#f92672">.</span>ZstdDecompressor()
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">def</span> <span style="color:#a6e22e">__iter__</span>(self):
+</span></span><span style="display:flex;"><span>        <span style="color:#e6db74">&#34;&#34;&#34;Yields parsed position dictionaries from the JSONL file.&#34;&#34;&#34;</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">with</span> open(self<span style="color:#f92672">.</span>path, <span style="color:#e6db74">&#39;rb&#39;</span>) <span style="color:#66d9ef">as</span> file:
+</span></span><span style="display:flex;"><span>            <span style="color:#66d9ef">with</span> self<span style="color:#f92672">.</span>dctx<span style="color:#f92672">.</span>stream_reader(file) <span style="color:#66d9ef">as</span> reader:
+</span></span><span style="display:flex;"><span>                text_stream <span style="color:#f92672">=</span> io<span style="color:#f92672">.</span>TextIOWrapper(reader, encoding<span style="color:#f92672">=</span><span style="color:#e6db74">&#39;utf-8&#39;</span>)
+</span></span><span style="display:flex;"><span>                <span style="color:#66d9ef">for</span> line <span style="color:#f92672">in</span> text_stream:
+</span></span><span style="display:flex;"><span>                    line <span style="color:#f92672">=</span> line<span style="color:#f92672">.</span>strip()
+</span></span><span style="display:flex;"><span>                    <span style="color:#66d9ef">if</span> line:
+</span></span><span style="display:flex;"><span>                        <span style="color:#66d9ef">yield</span> json<span style="color:#f92672">.</span>loads(line)
+</span></span></code></pre></div><p>this can be plugged into a pytorch dataloader that uses the python-chess library to generate a chess board from the position FEN string, and yields batches of data to the neural net for training.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span><span style="color:#66d9ef">class</span> <span style="color:#a6e22e">LichessEvalDataset</span>(IterableDataset):
+</span></span><span style="display:flex;"><span>    <span style="color:#e6db74">&#34;&#34;&#34;
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">    PyTorch IterableDataset for streaming Lichess evaluation data.
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">    
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">    Streams positions from compressed JSONL file, converts to tensors on-the-fly.
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">    Returns raw centipawn evaluations - apply normalization in training code.
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">    No preprocessing or decompression to disk required.
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">    
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">    Uses a shuffle buffer to randomize the order of positions, breaking up
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">    correlations between consecutive positions from the same game.
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">    
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">    Note: This dataset yields positions for a SINGLE epoch (one pass through the file).
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">    To train for multiple epochs, create a new iterator or call the training loop multiple times.
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">    &#34;&#34;&#34;</span>
+</span></span><span style="display:flex;"><span>    
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">def</span> <span style="color:#a6e22e">__init__</span>(
+</span></span><span style="display:flex;"><span>        self, 
+</span></span><span style="display:flex;"><span>        zstd_path: str,
+</span></span><span style="display:flex;"><span>        max_positions: Optional[int] <span style="color:#f92672">=</span> <span style="color:#66d9ef">None</span>,
+</span></span><span style="display:flex;"><span>        shuffle_buffer_size: int <span style="color:#f92672">=</span> <span style="color:#ae81ff">10000</span>
+</span></span><span style="display:flex;"><span>    ):
+</span></span><span style="display:flex;"><span>        <span style="color:#e6db74">&#34;&#34;&#34;
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">        Args:
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">            zstd_path: Path to lichess_db_eval.jsonl.zst file
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">            max_positions: Optional limit on number of positions to yield per epoch
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">            shuffle_buffer_size: Size of the shuffle buffer (larger = better shuffling, more memory)
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">                                 Set to 0 to disable shuffling
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">        &#34;&#34;&#34;</span>
+</span></span><span style="display:flex;"><span>        self<span style="color:#f92672">.</span>zstd_path <span style="color:#f92672">=</span> zstd_path
+</span></span><span style="display:flex;"><span>        self<span style="color:#f92672">.</span>max_positions <span style="color:#f92672">=</span> max_positions
+</span></span><span style="display:flex;"><span>        self<span style="color:#f92672">.</span>shuffle_buffer_size <span style="color:#f92672">=</span> shuffle_buffer_size
+</span></span><span style="display:flex;"><span>        self<span style="color:#f92672">.</span>positions_in_last_epoch <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>  <span style="color:#75715e"># Track how many positions were in the last epoch</span>
+</span></span><span style="display:flex;"><span>    
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">def</span> <span style="color:#a6e22e">__iter__</span>(self):
+</span></span><span style="display:flex;"><span>        <span style="color:#e6db74">&#34;&#34;&#34;Yields (board_tensor, centipawn_eval) pairs with optional shuffling.&#34;&#34;&#34;</span>
+</span></span><span style="display:flex;"><span>        streamer <span style="color:#f92672">=</span> ZstdStreamer(self<span style="color:#f92672">.</span>zstd_path)
+</span></span><span style="display:flex;"><span>        count <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>
+</span></span><span style="display:flex;"><span>        
+</span></span><span style="display:flex;"><span>        <span style="color:#75715e"># Shuffle buffer for randomizing order</span>
+</span></span><span style="display:flex;"><span>        buffer <span style="color:#f92672">=</span> []
+</span></span><span style="display:flex;"><span>        
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">for</span> record <span style="color:#f92672">in</span> streamer:
+</span></span><span style="display:flex;"><span>            <span style="color:#66d9ef">if</span> self<span style="color:#f92672">.</span>max_positions <span style="color:#f92672">and</span> count <span style="color:#f92672">&gt;=</span> self<span style="color:#f92672">.</span>max_positions:
+</span></span><span style="display:flex;"><span>                <span style="color:#66d9ef">break</span>
+</span></span><span style="display:flex;"><span>            
+</span></span><span style="display:flex;"><span>            <span style="color:#66d9ef">try</span>:
+</span></span><span style="display:flex;"><span>                <span style="color:#75715e"># Parse FEN and convert to tensor</span>
+</span></span><span style="display:flex;"><span>                board <span style="color:#f92672">=</span> Board<span style="color:#f92672">.</span>from_fen(record[<span style="color:#e6db74">&#39;fen&#39;</span>])
+</span></span><span style="display:flex;"><span>                board_tensor <span style="color:#f92672">=</span> board<span style="color:#f92672">.</span>to_tensor()
+</span></span><span style="display:flex;"><span>                
+</span></span><span style="display:flex;"><span>                <span style="color:#75715e"># Extract centipawn evaluation from first PV (raw value)</span>
+</span></span><span style="display:flex;"><span>                cp <span style="color:#f92672">=</span> record[<span style="color:#e6db74">&#39;evals&#39;</span>][<span style="color:#ae81ff">0</span>][<span style="color:#e6db74">&#39;pvs&#39;</span>][<span style="color:#ae81ff">0</span>][<span style="color:#e6db74">&#39;cp&#39;</span>]
+</span></span><span style="display:flex;"><span>                
+</span></span><span style="display:flex;"><span>                item <span style="color:#f92672">=</span> (board_tensor, torch<span style="color:#f92672">.</span>tensor(float(cp), dtype<span style="color:#f92672">=</span>torch<span style="color:#f92672">.</span>float32))
+</span></span><span style="display:flex;"><span>                
+</span></span><span style="display:flex;"><span>                <span style="color:#66d9ef">if</span> self<span style="color:#f92672">.</span>shuffle_buffer_size <span style="color:#f92672">&gt;</span> <span style="color:#ae81ff">0</span>:
+</span></span><span style="display:flex;"><span>                    <span style="color:#75715e"># Add to buffer</span>
+</span></span><span style="display:flex;"><span>                    buffer<span style="color:#f92672">.</span>append(item)
+</span></span><span style="display:flex;"><span>                    
+</span></span><span style="display:flex;"><span>                    <span style="color:#75715e"># When buffer is full, yield a random item</span>
+</span></span><span style="display:flex;"><span>                    <span style="color:#66d9ef">if</span> len(buffer) <span style="color:#f92672">&gt;=</span> self<span style="color:#f92672">.</span>shuffle_buffer_size:
+</span></span><span style="display:flex;"><span>                        idx <span style="color:#f92672">=</span> random<span style="color:#f92672">.</span>randint(<span style="color:#ae81ff">0</span>, len(buffer) <span style="color:#f92672">-</span> <span style="color:#ae81ff">1</span>)
+</span></span><span style="display:flex;"><span>                        <span style="color:#66d9ef">yield</span> buffer<span style="color:#f92672">.</span>pop(idx)
+</span></span><span style="display:flex;"><span>                        count <span style="color:#f92672">+=</span> <span style="color:#ae81ff">1</span>
+</span></span><span style="display:flex;"><span>                <span style="color:#66d9ef">else</span>:
+</span></span><span style="display:flex;"><span>                    <span style="color:#75715e"># No shuffling, yield directly</span>
+</span></span><span style="display:flex;"><span>                    <span style="color:#66d9ef">yield</span> item
+</span></span><span style="display:flex;"><span>                    count <span style="color:#f92672">+=</span> <span style="color:#ae81ff">1</span>
+</span></span><span style="display:flex;"><span>                
+</span></span><span style="display:flex;"><span>            <span style="color:#66d9ef">except</span> (<span style="color:#a6e22e">KeyError</span>, <span style="color:#a6e22e">IndexError</span>, <span style="color:#a6e22e">ValueError</span>) <span style="color:#66d9ef">as</span> e:
+</span></span><span style="display:flex;"><span>                <span style="color:#75715e"># Skip malformed records</span>
+</span></span><span style="display:flex;"><span>                <span style="color:#66d9ef">continue</span>
+</span></span><span style="display:flex;"><span>        
+</span></span><span style="display:flex;"><span>        <span style="color:#75715e"># Yield remaining items in buffer (shuffled)</span>
+</span></span><span style="display:flex;"><span>        random<span style="color:#f92672">.</span>shuffle(buffer)
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">for</span> item <span style="color:#f92672">in</span> buffer:
+</span></span><span style="display:flex;"><span>            <span style="color:#66d9ef">if</span> self<span style="color:#f92672">.</span>max_positions <span style="color:#f92672">and</span> count <span style="color:#f92672">&gt;=</span> self<span style="color:#f92672">.</span>max_positions:
+</span></span><span style="display:flex;"><span>                <span style="color:#66d9ef">break</span>
+</span></span><span style="display:flex;"><span>            <span style="color:#66d9ef">yield</span> item
+</span></span><span style="display:flex;"><span>            count <span style="color:#f92672">+=</span> <span style="color:#ae81ff">1</span>
+</span></span><span style="display:flex;"><span>        
+</span></span><span style="display:flex;"><span>        <span style="color:#75715e"># Track positions yielded this epoch</span>
+</span></span><span style="display:flex;"><span>        self<span style="color:#f92672">.</span>positions_in_last_epoch <span style="color:#f92672">=</span> count
+</span></span></code></pre></div><h2 id="evaluation">evaluation<a href="#evaluation" class="hanchor" ariaLabel="Anchor">#</a> </h2>
+<p>i don&rsquo;t want to train a chess engine with any fancy chess knowledge hoohah. this is boring and people already spent a lot of time figuring it out in the 1800s. i want cockfish to learn from first principles straight from the womb.</p>
+<p>this means some tensor representation of the chess board should be the only input, which i am representing as a 13x8x8 bitmap, an 8x8 chess board layer for each of the 12 pieces (black and white pieces being on different layers), and a single boolean 8x8 layer to show who&rsquo;s move it is (this is probably better to plug in as a second single input but oh well).</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span><span style="color:#f92672">from</span> typing <span style="color:#f92672">import</span> Self, Optional
+</span></span><span style="display:flex;"><span><span style="color:#f92672">from</span> dataclasses <span style="color:#f92672">import</span> dataclass
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">import</span> torch
+</span></span><span style="display:flex;"><span><span style="color:#f92672">import</span> numpy <span style="color:#66d9ef">as</span> np
+</span></span><span style="display:flex;"><span><span style="color:#f92672">from</span> chess <span style="color:#f92672">import</span> Board <span style="color:#66d9ef">as</span> ChessBoard, WHITE
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#a6e22e">@dataclass</span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">class</span> <span style="color:#a6e22e">Board</span>:
+</span></span><span style="display:flex;"><span>    <span style="color:#e6db74">&#34;&#34;&#34;
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">    The representation of our chess board.
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">    &#34;&#34;&#34;</span>
+</span></span><span style="display:flex;"><span>    fen: str
+</span></span><span style="display:flex;"><span>    board_obj: ChessBoard
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">@classmethod</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">def</span> <span style="color:#a6e22e">new_game</span>(cls) <span style="color:#f92672">-&gt;</span> Self:
+</span></span><span style="display:flex;"><span>        <span style="color:#e6db74">&#34;&#34;&#34;
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">        Create a new board in the starting position.
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">        &#34;&#34;&#34;</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">return</span> cls<span style="color:#f92672">.</span>from_fen(ChessBoard()<span style="color:#f92672">.</span>fen())
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">@classmethod</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">def</span> <span style="color:#a6e22e">from_fen</span>(cls, fen: str) <span style="color:#f92672">-&gt;</span> Self:
+</span></span><span style="display:flex;"><span>        <span style="color:#e6db74">&#34;&#34;&#34;
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">        Load a board from a FEN string.
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">        &#34;&#34;&#34;</span>
+</span></span><span style="display:flex;"><span>        chess_board <span style="color:#f92672">=</span> ChessBoard(fen)
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">return</span> cls(fen<span style="color:#f92672">=</span>fen, board_obj<span style="color:#f92672">=</span>chess_board)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">@property</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">def</span> <span style="color:#a6e22e">legal_moves</span>(self):
+</span></span><span style="display:flex;"><span>        <span style="color:#e6db74">&#34;&#34;&#34;
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">        Get the legal moves for the current position.
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">        &#34;&#34;&#34;</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">return</span> list(self<span style="color:#f92672">.</span>board_obj<span style="color:#f92672">.</span>legal_moves)
+</span></span><span style="display:flex;"><span>    
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">def</span> <span style="color:#a6e22e">to_tensor</span>(self) <span style="color:#f92672">-&gt;</span> torch<span style="color:#f92672">.</span>Tensor:
+</span></span><span style="display:flex;"><span>        <span style="color:#e6db74">&#34;&#34;&#34;
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">        Convert board to raw tensor representation.
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">        Returns a tensor of shape (13, 8, 8):
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">        - 12 planes for pieces (6 piece types x 2 colors)
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">        - 1 plane for side to move (all 1s if white, all 0s if black)
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">        &#34;&#34;&#34;</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#75715e"># Initialize 13 planes of 8x8</span>
+</span></span><span style="display:flex;"><span>        planes <span style="color:#f92672">=</span> np<span style="color:#f92672">.</span>zeros((<span style="color:#ae81ff">13</span>, <span style="color:#ae81ff">8</span>, <span style="color:#ae81ff">8</span>), dtype<span style="color:#f92672">=</span>np<span style="color:#f92672">.</span>float32)
+</span></span><span style="display:flex;"><span>        
+</span></span><span style="display:flex;"><span>        <span style="color:#75715e"># Piece type mapping: pawn=1, knight=2, bishop=3, rook=4, queen=5, king=6</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#75715e"># Planes 0-5: white pieces (P, N, B, R, Q, K)</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#75715e"># Planes 6-11: black pieces (p, n, b, r, q, k)</span>
+</span></span><span style="display:flex;"><span>        
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">for</span> square <span style="color:#f92672">in</span> range(<span style="color:#ae81ff">64</span>):
+</span></span><span style="display:flex;"><span>            piece <span style="color:#f92672">=</span> self<span style="color:#f92672">.</span>board_obj<span style="color:#f92672">.</span>piece_at(square)
+</span></span><span style="display:flex;"><span>            <span style="color:#66d9ef">if</span> piece:
+</span></span><span style="display:flex;"><span>                rank <span style="color:#f92672">=</span> square <span style="color:#f92672">//</span> <span style="color:#ae81ff">8</span>
+</span></span><span style="display:flex;"><span>                file <span style="color:#f92672">=</span> square <span style="color:#f92672">%</span> <span style="color:#ae81ff">8</span>
+</span></span><span style="display:flex;"><span>                
+</span></span><span style="display:flex;"><span>                <span style="color:#75715e"># Determine plane index</span>
+</span></span><span style="display:flex;"><span>                <span style="color:#66d9ef">if</span> piece<span style="color:#f92672">.</span>color <span style="color:#f92672">==</span> WHITE:
+</span></span><span style="display:flex;"><span>                    plane_idx <span style="color:#f92672">=</span> piece<span style="color:#f92672">.</span>piece_type <span style="color:#f92672">-</span> <span style="color:#ae81ff">1</span>  <span style="color:#75715e"># 0-5</span>
+</span></span><span style="display:flex;"><span>                <span style="color:#66d9ef">else</span>:
+</span></span><span style="display:flex;"><span>                    plane_idx <span style="color:#f92672">=</span> piece<span style="color:#f92672">.</span>piece_type <span style="color:#f92672">+</span> <span style="color:#ae81ff">5</span>  <span style="color:#75715e"># 6-11</span>
+</span></span><span style="display:flex;"><span>                
+</span></span><span style="display:flex;"><span>                planes[plane_idx, rank, file] <span style="color:#f92672">=</span> <span style="color:#ae81ff">1.0</span>
+</span></span><span style="display:flex;"><span>        
+</span></span><span style="display:flex;"><span>        <span style="color:#75715e"># Plane 12: side to move</span>
+</span></span><span style="display:flex;"><span>        planes[<span style="color:#ae81ff">12</span>, :, :] <span style="color:#f92672">=</span> <span style="color:#ae81ff">1.0</span> <span style="color:#66d9ef">if</span> self<span style="color:#f92672">.</span>board_obj<span style="color:#f92672">.</span>turn <span style="color:#f92672">==</span> WHITE <span style="color:#66d9ef">else</span> <span style="color:#ae81ff">0.0</span>
+</span></span><span style="display:flex;"><span>        
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">return</span> torch<span style="color:#f92672">.</span>from_numpy(planes)
+</span></span></code></pre></div><h2 id="training">training<a href="#training" class="hanchor" ariaLabel="Anchor">#</a> </h2>
+<p>given the spacial setup of a chess board, a convolutional approach makes sense here, but we have to be careful. convolutions are great because they give us <strong>local spatial awareness</strong> — each neuron can see what pieces are around it and reason about tactical motifs like forks, pins, and skewers.</p>
+<p>but there&rsquo;s a catch: convolutions have a limited receptive field. without seeing the whole board at once, a network might miss strategic concepts like &ldquo;i&rsquo;m down a queen but my opponent&rsquo;s king is cornered&rdquo; or &ldquo;i have a passed pawn three squares from promotion&rdquo;. so we layer in <strong>global pooling</strong> — averaging features across the entire board and broadcasting them back to every square. this gives each position access to board-wide context without needing the receptive field to physically span 64 squares.</p>
+<p>the backbone is <strong>residual blocks</strong> because they let us go deeper without gradient flow collapsing. each residual block takes in 64-dim spatial features and outputs 64-dim spatial features with a skip connection, so gradients can flow straight through. stack a few of these and the network can learn increasingly complex patterns.</p>
+<p>after the convolutions squeeze out features, we flatten everything and throw it through a couple fully connected layers to predict a single number: the evaluation. we use tanh to squash it to [-1, 1], matching the normalized stockfish centipawn evaluations in our dataset.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span><span style="color:#66d9ef">class</span> <span style="color:#a6e22e">ResidualBlock</span>(nn<span style="color:#f92672">.</span>Module):
+</span></span><span style="display:flex;"><span>    <span style="color:#e6db74">&#34;&#34;&#34;
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">    Residual block with skip connection.
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">    
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">    Allows gradients to flow directly through skip connection,
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">    enabling training of deeper networks.
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">    &#34;&#34;&#34;</span>
+</span></span><span style="display:flex;"><span>    
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">def</span> <span style="color:#a6e22e">__init__</span>(self, num_filters, activation<span style="color:#f92672">=</span><span style="color:#e6db74">&#39;relu&#39;</span>):
+</span></span><span style="display:flex;"><span>        super()<span style="color:#f92672">.</span><span style="color:#a6e22e">__init__</span>()
+</span></span><span style="display:flex;"><span>        
+</span></span><span style="display:flex;"><span>        self<span style="color:#f92672">.</span>conv1 <span style="color:#f92672">=</span> nn<span style="color:#f92672">.</span>Conv2d(num_filters, num_filters, kernel_size<span style="color:#f92672">=</span><span style="color:#ae81ff">3</span>, padding<span style="color:#f92672">=</span><span style="color:#ae81ff">1</span>)
+</span></span><span style="display:flex;"><span>        self<span style="color:#f92672">.</span>bn1 <span style="color:#f92672">=</span> nn<span style="color:#f92672">.</span>BatchNorm2d(num_filters)
+</span></span><span style="display:flex;"><span>        
+</span></span><span style="display:flex;"><span>        self<span style="color:#f92672">.</span>conv2 <span style="color:#f92672">=</span> nn<span style="color:#f92672">.</span>Conv2d(num_filters, num_filters, kernel_size<span style="color:#f92672">=</span><span style="color:#ae81ff">3</span>, padding<span style="color:#f92672">=</span><span style="color:#ae81ff">1</span>)
+</span></span><span style="display:flex;"><span>        self<span style="color:#f92672">.</span>bn2 <span style="color:#f92672">=</span> nn<span style="color:#f92672">.</span>BatchNorm2d(num_filters)
+</span></span><span style="display:flex;"><span>        
+</span></span><span style="display:flex;"><span>        self<span style="color:#f92672">.</span>activation <span style="color:#f92672">=</span> self<span style="color:#f92672">.</span>_get_activation(activation)
+</span></span><span style="display:flex;"><span>    
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">def</span> <span style="color:#a6e22e">_get_activation</span>(self, name):
+</span></span><span style="display:flex;"><span>        <span style="color:#e6db74">&#34;&#34;&#34;Get activation function by name.&#34;&#34;&#34;</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">if</span> name <span style="color:#f92672">==</span> <span style="color:#e6db74">&#39;relu&#39;</span>:
+</span></span><span style="display:flex;"><span>            <span style="color:#66d9ef">return</span> nn<span style="color:#f92672">.</span>ReLU()
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">elif</span> name <span style="color:#f92672">==</span> <span style="color:#e6db74">&#39;gelu&#39;</span>:
+</span></span><span style="display:flex;"><span>            <span style="color:#66d9ef">return</span> nn<span style="color:#f92672">.</span>GELU()
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">elif</span> name <span style="color:#f92672">==</span> <span style="color:#e6db74">&#39;silu&#39;</span>:
+</span></span><span style="display:flex;"><span>            <span style="color:#66d9ef">return</span> nn<span style="color:#f92672">.</span>SiLU()
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">elif</span> name <span style="color:#f92672">==</span> <span style="color:#e6db74">&#39;leaky_relu&#39;</span>:
+</span></span><span style="display:flex;"><span>            <span style="color:#66d9ef">return</span> nn<span style="color:#f92672">.</span>LeakyReLU(<span style="color:#ae81ff">0.01</span>)
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">else</span>:
+</span></span><span style="display:flex;"><span>            <span style="color:#66d9ef">raise</span> <span style="color:#a6e22e">ValueError</span>(<span style="color:#e6db74">f</span><span style="color:#e6db74">&#34;Unknown activation: </span><span style="color:#e6db74">{</span>name<span style="color:#e6db74">}</span><span style="color:#e6db74">&#34;</span>)
+</span></span><span style="display:flex;"><span>    
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">def</span> <span style="color:#a6e22e">forward</span>(self, x):
+</span></span><span style="display:flex;"><span>        <span style="color:#75715e"># Store input for skip connection</span>
+</span></span><span style="display:flex;"><span>        identity <span style="color:#f92672">=</span> x
+</span></span><span style="display:flex;"><span>        
+</span></span><span style="display:flex;"><span>        <span style="color:#75715e"># First conv block</span>
+</span></span><span style="display:flex;"><span>        out <span style="color:#f92672">=</span> self<span style="color:#f92672">.</span>conv1(x)
+</span></span><span style="display:flex;"><span>        out <span style="color:#f92672">=</span> self<span style="color:#f92672">.</span>bn1(out)
+</span></span><span style="display:flex;"><span>        out <span style="color:#f92672">=</span> self<span style="color:#f92672">.</span>activation(out)
+</span></span><span style="display:flex;"><span>        
+</span></span><span style="display:flex;"><span>        <span style="color:#75715e"># Second conv block</span>
+</span></span><span style="display:flex;"><span>        out <span style="color:#f92672">=</span> self<span style="color:#f92672">.</span>conv2(out)
+</span></span><span style="display:flex;"><span>        out <span style="color:#f92672">=</span> self<span style="color:#f92672">.</span>bn2(out)
+</span></span><span style="display:flex;"><span>        
+</span></span><span style="display:flex;"><span>        <span style="color:#75715e"># Add skip connection</span>
+</span></span><span style="display:flex;"><span>        out <span style="color:#f92672">=</span> out <span style="color:#f92672">+</span> identity
+</span></span><span style="display:flex;"><span>        out <span style="color:#f92672">=</span> self<span style="color:#f92672">.</span>activation(out)
+</span></span><span style="display:flex;"><span>        
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">return</span> out
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">class</span> <span style="color:#a6e22e">CockfishNet</span>(nn<span style="color:#f92672">.</span>Module):
+</span></span><span style="display:flex;"><span>    <span style="color:#e6db74">&#34;&#34;&#34;
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">    Cockfish&#39;s Brain
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">    
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">    Takes raw board representation (13, 8, 8) and outputs a single evaluation score.
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">    Architecture: Conv layers =&gt; Residual blocks =&gt; Global context =&gt; FC layers =&gt; Single output
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">    &#34;&#34;&#34;</span>
+</span></span><span style="display:flex;"><span>    
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">def</span> <span style="color:#a6e22e">__init__</span>(
+</span></span><span style="display:flex;"><span>        self, 
+</span></span><span style="display:flex;"><span>        num_filters<span style="color:#f92672">=</span><span style="color:#ae81ff">64</span>, 
+</span></span><span style="display:flex;"><span>        num_residual_blocks<span style="color:#f92672">=</span><span style="color:#ae81ff">4</span>,
+</span></span><span style="display:flex;"><span>        use_global_pooling<span style="color:#f92672">=</span><span style="color:#66d9ef">True</span>,
+</span></span><span style="display:flex;"><span>        activation<span style="color:#f92672">=</span><span style="color:#e6db74">&#39;relu&#39;</span>
+</span></span><span style="display:flex;"><span>    ):
+</span></span><span style="display:flex;"><span>        <span style="color:#e6db74">&#34;&#34;&#34;
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">        Args:
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">            num_filters: Number of filters in convolutional layers
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">            num_residual_blocks: Number of residual blocks (more = deeper, sees farther)
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">            use_global_pooling: Whether to add global board context to features
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">            activation: Activation function (&#39;relu&#39;, &#39;gelu&#39;, &#39;silu&#39;, &#39;leaky_relu&#39;)
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">        &#34;&#34;&#34;</span>
+</span></span><span style="display:flex;"><span>        super()<span style="color:#f92672">.</span><span style="color:#a6e22e">__init__</span>()
+</span></span><span style="display:flex;"><span>        
+</span></span><span style="display:flex;"><span>        self<span style="color:#f92672">.</span>num_filters <span style="color:#f92672">=</span> num_filters
+</span></span><span style="display:flex;"><span>        self<span style="color:#f92672">.</span>num_residual_blocks <span style="color:#f92672">=</span> num_residual_blocks
+</span></span><span style="display:flex;"><span>        self<span style="color:#f92672">.</span>use_global_pooling <span style="color:#f92672">=</span> use_global_pooling
+</span></span><span style="display:flex;"><span>        self<span style="color:#f92672">.</span>activation_name <span style="color:#f92672">=</span> activation
+</span></span><span style="display:flex;"><span>        
+</span></span><span style="display:flex;"><span>        <span style="color:#75715e"># Get activation function</span>
+</span></span><span style="display:flex;"><span>        self<span style="color:#f92672">.</span>activation <span style="color:#f92672">=</span> self<span style="color:#f92672">.</span>_get_activation(activation)
+</span></span><span style="display:flex;"><span>        
+</span></span><span style="display:flex;"><span>        <span style="color:#75715e"># Initial conv layer: 13 input channels (12 pieces + side to move) → num_filters</span>
+</span></span><span style="display:flex;"><span>        self<span style="color:#f92672">.</span>conv_initial <span style="color:#f92672">=</span> nn<span style="color:#f92672">.</span>Conv2d(<span style="color:#ae81ff">13</span>, num_filters, kernel_size<span style="color:#f92672">=</span><span style="color:#ae81ff">3</span>, padding<span style="color:#f92672">=</span><span style="color:#ae81ff">1</span>)
+</span></span><span style="display:flex;"><span>        self<span style="color:#f92672">.</span>bn_initial <span style="color:#f92672">=</span> nn<span style="color:#f92672">.</span>BatchNorm2d(num_filters)
+</span></span><span style="display:flex;"><span>        
+</span></span><span style="display:flex;"><span>        <span style="color:#75715e"># Stack of residual blocks for deep feature extraction</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#75715e"># Each block maintains spatial dimensions but learns increasingly complex patterns</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#75715e"># More blocks = larger receptive field = can see farther across board</span>
+</span></span><span style="display:flex;"><span>        self<span style="color:#f92672">.</span>residual_blocks <span style="color:#f92672">=</span> nn<span style="color:#f92672">.</span>ModuleList([
+</span></span><span style="display:flex;"><span>            ResidualBlock(num_filters, activation) 
+</span></span><span style="display:flex;"><span>            <span style="color:#66d9ef">for</span> _ <span style="color:#f92672">in</span> range(num_residual_blocks)
+</span></span><span style="display:flex;"><span>        ])
+</span></span><span style="display:flex;"><span>        
+</span></span><span style="display:flex;"><span>        <span style="color:#75715e"># Calculate size of flattened features</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">if</span> use_global_pooling:
+</span></span><span style="display:flex;"><span>            <span style="color:#75715e"># Local features (spatial) + global features (broadcasted)</span>
+</span></span><span style="display:flex;"><span>            <span style="color:#75715e"># We concatenate them, so double the channels</span>
+</span></span><span style="display:flex;"><span>            flatten_size <span style="color:#f92672">=</span> num_filters <span style="color:#f92672">*</span> <span style="color:#ae81ff">2</span> <span style="color:#f92672">*</span> <span style="color:#ae81ff">8</span> <span style="color:#f92672">*</span> <span style="color:#ae81ff">8</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">else</span>:
+</span></span><span style="display:flex;"><span>            <span style="color:#75715e"># Just local spatial features</span>
+</span></span><span style="display:flex;"><span>            flatten_size <span style="color:#f92672">=</span> num_filters <span style="color:#f92672">*</span> <span style="color:#ae81ff">8</span> <span style="color:#f92672">*</span> <span style="color:#ae81ff">8</span>
+</span></span><span style="display:flex;"><span>        
+</span></span><span style="display:flex;"><span>        <span style="color:#75715e"># Fully connected layers to combine all features into single evaluation</span>
+</span></span><span style="display:flex;"><span>        self<span style="color:#f92672">.</span>fc1 <span style="color:#f92672">=</span> nn<span style="color:#f92672">.</span>Linear(flatten_size, <span style="color:#ae81ff">256</span>)
+</span></span><span style="display:flex;"><span>        self<span style="color:#f92672">.</span>fc2 <span style="color:#f92672">=</span> nn<span style="color:#f92672">.</span>Linear(<span style="color:#ae81ff">256</span>, <span style="color:#ae81ff">128</span>)
+</span></span><span style="display:flex;"><span>        self<span style="color:#f92672">.</span>fc3 <span style="color:#f92672">=</span> nn<span style="color:#f92672">.</span>Linear(<span style="color:#ae81ff">128</span>, <span style="color:#ae81ff">1</span>)
+</span></span><span style="display:flex;"><span>        
+</span></span><span style="display:flex;"><span>        <span style="color:#75715e"># Lower dropout - 0.3 was too aggressive for this task</span>
+</span></span><span style="display:flex;"><span>        self<span style="color:#f92672">.</span>dropout <span style="color:#f92672">=</span> nn<span style="color:#f92672">.</span>Dropout(<span style="color:#ae81ff">0.1</span>)
+</span></span><span style="display:flex;"><span>    
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">def</span> <span style="color:#a6e22e">_get_activation</span>(self, name):
+</span></span><span style="display:flex;"><span>        <span style="color:#e6db74">&#34;&#34;&#34;Get activation function by name.&#34;&#34;&#34;</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">if</span> name <span style="color:#f92672">==</span> <span style="color:#e6db74">&#39;relu&#39;</span>:
+</span></span><span style="display:flex;"><span>            <span style="color:#66d9ef">return</span> nn<span style="color:#f92672">.</span>ReLU()
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">elif</span> name <span style="color:#f92672">==</span> <span style="color:#e6db74">&#39;gelu&#39;</span>:
+</span></span><span style="display:flex;"><span>            <span style="color:#66d9ef">return</span> nn<span style="color:#f92672">.</span>GELU()
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">elif</span> name <span style="color:#f92672">==</span> <span style="color:#e6db74">&#39;silu&#39;</span>:
+</span></span><span style="display:flex;"><span>            <span style="color:#66d9ef">return</span> nn<span style="color:#f92672">.</span>SiLU()
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">elif</span> name <span style="color:#f92672">==</span> <span style="color:#e6db74">&#39;leaky_relu&#39;</span>:
+</span></span><span style="display:flex;"><span>            <span style="color:#66d9ef">return</span> nn<span style="color:#f92672">.</span>LeakyReLU(<span style="color:#ae81ff">0.01</span>)
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">else</span>:
+</span></span><span style="display:flex;"><span>            <span style="color:#66d9ef">raise</span> <span style="color:#a6e22e">ValueError</span>(<span style="color:#e6db74">f</span><span style="color:#e6db74">&#34;Unknown activation: </span><span style="color:#e6db74">{</span>name<span style="color:#e6db74">}</span><span style="color:#e6db74">&#34;</span>)
+</span></span><span style="display:flex;"><span>    
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">def</span> <span style="color:#a6e22e">forward</span>(self, x):
+</span></span><span style="display:flex;"><span>        <span style="color:#e6db74">&#34;&#34;&#34;
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">        Args:
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">            x: Tensor of shape (batch_size, 13, 8, 8)
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">            
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">        Returns:
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">            Tensor of shape (batch_size,) - position evaluations
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">        &#34;&#34;&#34;</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#75715e"># Initial convolution to get base features</span>
+</span></span><span style="display:flex;"><span>        x <span style="color:#f92672">=</span> self<span style="color:#f92672">.</span>conv_initial(x)
+</span></span><span style="display:flex;"><span>        x <span style="color:#f92672">=</span> self<span style="color:#f92672">.</span>bn_initial(x)
+</span></span><span style="display:flex;"><span>        x <span style="color:#f92672">=</span> self<span style="color:#f92672">.</span>activation(x)
+</span></span><span style="display:flex;"><span>        
+</span></span><span style="display:flex;"><span>        <span style="color:#75715e"># Pass through residual blocks</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#75715e"># Each block refines features and expands receptive field</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">for</span> block <span style="color:#f92672">in</span> self<span style="color:#f92672">.</span>residual_blocks:
+</span></span><span style="display:flex;"><span>            x <span style="color:#f92672">=</span> block(x)
+</span></span><span style="display:flex;"><span>        
+</span></span><span style="display:flex;"><span>        <span style="color:#75715e"># x is now (batch_size, num_filters, 8, 8)</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#75715e"># Contains rich local features at each square</span>
+</span></span><span style="display:flex;"><span>        
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">if</span> self<span style="color:#f92672">.</span>use_global_pooling:
+</span></span><span style="display:flex;"><span>            <span style="color:#75715e"># Add global board context to help with long-range dependencies</span>
+</span></span><span style="display:flex;"><span>            <span style="color:#75715e"># Global pooling gives each square access to board-wide statistics</span>
+</span></span><span style="display:flex;"><span>            <span style="color:#75715e"># This helps capture things like &#34;material balance&#34; or &#34;king safety&#34;</span>
+</span></span><span style="display:flex;"><span>            <span style="color:#75715e"># without needing the receptive field to span entire board</span>
+</span></span><span style="display:flex;"><span>            
+</span></span><span style="display:flex;"><span>            <span style="color:#75715e"># Average all spatial positions to get global features</span>
+</span></span><span style="display:flex;"><span>            global_features <span style="color:#f92672">=</span> x<span style="color:#f92672">.</span>mean(dim<span style="color:#f92672">=</span>[<span style="color:#ae81ff">2</span>, <span style="color:#ae81ff">3</span>])  <span style="color:#75715e"># (batch_size, num_filters)</span>
+</span></span><span style="display:flex;"><span>            
+</span></span><span style="display:flex;"><span>            <span style="color:#75715e"># Broadcast global features back to spatial dimensions</span>
+</span></span><span style="display:flex;"><span>            <span style="color:#75715e"># Now every square knows about the overall board state</span>
+</span></span><span style="display:flex;"><span>            global_features <span style="color:#f92672">=</span> global_features<span style="color:#f92672">.</span>unsqueeze(<span style="color:#f92672">-</span><span style="color:#ae81ff">1</span>)<span style="color:#f92672">.</span>unsqueeze(<span style="color:#f92672">-</span><span style="color:#ae81ff">1</span>)  <span style="color:#75715e"># (batch_size, num_filters, 1, 1)</span>
+</span></span><span style="display:flex;"><span>            global_features <span style="color:#f92672">=</span> global_features<span style="color:#f92672">.</span>expand(<span style="color:#f92672">-</span><span style="color:#ae81ff">1</span>, <span style="color:#f92672">-</span><span style="color:#ae81ff">1</span>, <span style="color:#ae81ff">8</span>, <span style="color:#ae81ff">8</span>)  <span style="color:#75715e"># (batch_size, num_filters, 8, 8)</span>
+</span></span><span style="display:flex;"><span>            
+</span></span><span style="display:flex;"><span>            <span style="color:#75715e"># Concatenate local and global features</span>
+</span></span><span style="display:flex;"><span>            <span style="color:#75715e"># Each position now has both local tactical info AND global strategic info</span>
+</span></span><span style="display:flex;"><span>            x <span style="color:#f92672">=</span> torch<span style="color:#f92672">.</span>cat([x, global_features], dim<span style="color:#f92672">=</span><span style="color:#ae81ff">1</span>)  <span style="color:#75715e"># (batch_size, num_filters*2, 8, 8)</span>
+</span></span><span style="display:flex;"><span>        
+</span></span><span style="display:flex;"><span>        <span style="color:#75715e"># Flatten spatial dimensions</span>
+</span></span><span style="display:flex;"><span>        x <span style="color:#f92672">=</span> x<span style="color:#f92672">.</span>view(x<span style="color:#f92672">.</span>size(<span style="color:#ae81ff">0</span>), <span style="color:#f92672">-</span><span style="color:#ae81ff">1</span>)
+</span></span><span style="display:flex;"><span>        
+</span></span><span style="display:flex;"><span>        <span style="color:#75715e"># Fully connected layers with dropout</span>
+</span></span><span style="display:flex;"><span>        x <span style="color:#f92672">=</span> self<span style="color:#f92672">.</span>fc1(x)
+</span></span><span style="display:flex;"><span>        x <span style="color:#f92672">=</span> self<span style="color:#f92672">.</span>activation(x)
+</span></span><span style="display:flex;"><span>        x <span style="color:#f92672">=</span> self<span style="color:#f92672">.</span>dropout(x)
+</span></span><span style="display:flex;"><span>        
+</span></span><span style="display:flex;"><span>        x <span style="color:#f92672">=</span> self<span style="color:#f92672">.</span>fc2(x)
+</span></span><span style="display:flex;"><span>        x <span style="color:#f92672">=</span> self<span style="color:#f92672">.</span>activation(x)
+</span></span><span style="display:flex;"><span>        x <span style="color:#f92672">=</span> self<span style="color:#f92672">.</span>dropout(x)
+</span></span><span style="display:flex;"><span>        
+</span></span><span style="display:flex;"><span>        <span style="color:#75715e"># Output: single evaluation score, bounded to [-1, 1] to match tanh-normalized targets</span>
+</span></span><span style="display:flex;"><span>        x <span style="color:#f92672">=</span> self<span style="color:#f92672">.</span>fc3(x)
+</span></span><span style="display:flex;"><span>        x <span style="color:#f92672">=</span> torch<span style="color:#f92672">.</span>tanh(x)
+</span></span><span style="display:flex;"><span>        
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">return</span> x<span style="color:#f92672">.</span>squeeze(<span style="color:#f92672">-</span><span style="color:#ae81ff">1</span>)  <span style="color:#75715e"># Shape: (batch_size,)</span>
+</span></span></code></pre></div><h2 id="results">results<a href="#results" class="hanchor" ariaLabel="Anchor">#</a> </h2>
+<p>chess is a closed game, and if we overfit to every possible game state, hey-ho, we have a great chess engine, so i&rsquo;ve completely ignored validation loss here.</p>
+<p>if large language models have taught us anything, its that overfitting isn&rsquo;t an issue if you&rsquo;ve overfit to every possible scenario.</p>
+<p>i pumped it through a single epoch of the data, and after a couple of days of training on my macbook pro we get some nice training loss convergence.</p>
+<p><img src="/images/cockfish_loss.png" alt="training_loss"></p>
+<p>to evaluate our engine, i set up a flask web app with a chess ui that lets me play the bot, and an auto play system to play it against various levels of stockfish and evaluate its ELO score (courtesy of chatgpt, as i&rsquo;m too lazy to do this).</p>
+<pre tabindex="0"><code>──────────────────────────────────────────────────────────────────────
+OVERALL SUMMARY
+Total Games: 110
+Overall Score: 47.7% (+28 =49 -33)
+Pooled Elo Estimate: 1633 ± 65
+======================================================================
+</code></pre><p>an ELO of 1633 puts cockfish somewhere around a strong club player level, it&rsquo;s beating most casual players and will give experienced amateurs a run for their money. to put it in perspective:</p>
+<ul>
+<li>1200 ELO: a casual club player</li>
+<li>1600 ELO: a strong club player</li>
+<li>2000 ELO: master level</li>
+<li>2700+ ELO: grandmaster</li>
+</ul>
+<p>the interesting bit is that it got there with <em>literally no chess knowledge</em>. no piece-square tables, no king safety heuristics, no pawn structure evaluation - just raw board tensors and a network that had to figure out on its own that queens are worth roughly 9 pawns and that keeping your king safe is a pretty good idea.</p>
+<p>i&rsquo;ve played it many times now and can confirm it is annoying to play against. it doesn&rsquo;t play like stockfish (which is hyper-optimized and sometimes brutally computer-like), but rather like a really solid human player who understands positional play, doesn&rsquo;t hang pieces, and has some tactical awareness.</p>
+<p>of course, it&rsquo;s not perfect. a grandmaster would tear it apart. but for something trained in a few days on a laptop with zero domain knowledge, it&rsquo;s pretty cool.</p>
+
+      </div></div>
+
+  
+    
+<div class="pagination">
+  <div class="pagination__title">
+    <span class="pagination__title-h"></span>
+    <hr />
+  </div>
+  <div class="pagination__buttons">
+    
+    
+    
+      <a href="/posts/backpropagation-math/" class="button inline next">
+         [<span class="button__text">backpropagation for dorks</span>] &gt;
+      </a>
+    
+  </div>
+</div>
+
+
+  
+
+  
+    
+
+  
+</article>
+
+  </div>
+
+  
+    <footer class="footer">
+  <div class="footer__inner">
+    
+      <div class="copyright">
+        <span>© 2026 Powered by <a href="https://gohugo.io">Hugo</a></span>
+    
+      <span>:: <a href="https://github.com/panr/hugo-theme-terminal" target="_blank">Theme</a> made by <a href="https://github.com/panr" target="_blank">panr</a></span>
+      </div>
+  </div>
+</footer>
+
+
+
+
+
+
+<script type="text/javascript" src="/bundle.min.js"></script>
+
+
+
+
+
+  
+</div>
+
+</body>
+</html>

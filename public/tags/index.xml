@@ -2,24 +2,38 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>Tags on jmg</title>
-    <link>//localhost:1313/tags/</link>
+    <link>/tags/</link>
     <description>Recent content in Tags on jmg</description>
     <generator>Hugo</generator>
     <language>en-us</language>
-    <lastBuildDate>Fri, 09 Jan 2026 22:55:03 +0000</lastBuildDate>
-    <atom:link href="//localhost:1313/tags/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Mon, 19 Jan 2026 21:07:23 +0000</lastBuildDate>
+    <atom:link href="/tags/index.xml" rel="self" type="application/rss+xml" />
     <item>
-      <title>Math</title>
-      <link>//localhost:1313/tags/math/</link>
-      <pubDate>Fri, 09 Jan 2026 22:55:03 +0000</pubDate>
-      <guid>//localhost:1313/tags/math/</guid>
+      <title>Chess</title>
+      <link>/tags/chess/</link>
+      <pubDate>Mon, 19 Jan 2026 21:07:23 +0000</pubDate>
+      <guid>/tags/chess/</guid>
       <description></description>
     </item>
     <item>
       <title>Ml</title>
-      <link>//localhost:1313/tags/ml/</link>
+      <link>/tags/ml/</link>
+      <pubDate>Mon, 19 Jan 2026 21:07:23 +0000</pubDate>
+      <guid>/tags/ml/</guid>
+      <description></description>
+    </item>
+    <item>
+      <title>Neural Networks</title>
+      <link>/tags/neural-networks/</link>
+      <pubDate>Mon, 19 Jan 2026 21:07:23 +0000</pubDate>
+      <guid>/tags/neural-networks/</guid>
+      <description></description>
+    </item>
+    <item>
+      <title>Math</title>
+      <link>/tags/math/</link>
       <pubDate>Fri, 09 Jan 2026 22:55:03 +0000</pubDate>
-      <guid>//localhost:1313/tags/ml/</guid>
+      <guid>/tags/math/</guid>
       <description></description>
     </item>
   </channel>

@@ -2,25 +2,32 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>jmg</title>
-    <link>//localhost:1313/</link>
+    <link>/</link>
     <description>Recent content on jmg</description>
     <generator>Hugo</generator>
     <language>en-us</language>
-    <lastBuildDate>Fri, 09 Jan 2026 22:55:03 +0000</lastBuildDate>
-    <atom:link href="//localhost:1313/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Mon, 19 Jan 2026 21:07:23 +0000</lastBuildDate>
+    <atom:link href="/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>cockfish</title>
+      <link>/posts/cockfish/</link>
+      <pubDate>Mon, 19 Jan 2026 21:07:23 +0000</pubDate>
+      <guid>/posts/cockfish/</guid>
+      <description>&lt;p&gt;chess engines are very strong nowadays, and work through mysterious magic. courtsey of chatgpt:&lt;/p&gt;&#xA;&lt;blockquote&gt;&#xA;&lt;p&gt;Stockfish works by searching billions of chess positions per second using alpha-beta–pruned minimax guided by finely tuned evaluation heuristics (and NNUE), and it’s so effective because this combination turns raw computing power into extremely accurate position assessment and move selection.&lt;/p&gt;&#xA;&lt;/blockquote&gt;&#xA;&lt;p&gt;basically, if we have some way of quantifying how good a position is in a score (an evaluation function), and we have an efficient way to search move sequences (alpha-beta pruned minimax), then we can just search a bunch of moves and pick the ones that lead to the best outcome.&lt;/p&gt;</description>
+    </item>
     <item>
       <title>backpropagation for dorks</title>
-      <link>//localhost:1313/posts/backpropagation-math/</link>
+      <link>/posts/backpropagation-math/</link>
       <pubDate>Fri, 09 Jan 2026 22:55:03 +0000</pubDate>
-      <guid>//localhost:1313/posts/backpropagation-math/</guid>
-      <description>&lt;p&gt;this is a companion post to &lt;a href=&#34;//localhost:1313/posts/first-post/&#34;&gt;neural nets from scratch in rust&lt;/a&gt;, covering the mathematical foundations of backpropagation.&lt;/p&gt;&#xA;&lt;h1 id=&#34;the-setup&#34;&gt;the setup&lt;/h1&gt;&#xA;&lt;h2&gt;$ y = f(WX + b) $&lt;/h2&gt;&#xA;&lt;p&gt;the holy grail formula that underpins neural networks is just a linear transform that you then apply a differentiable nonlinear transformation to.&lt;/p&gt;&#xA;&lt;p&gt;lets consider a single layer neural network and define our shapes:&lt;/p&gt;&#xA;&lt;ul&gt;&#xA;&lt;li&gt;$X \in \mathbb{R}^{N \times P}$ is our input data, where $N$ is the number of samples and $P$ is the feature space dimension&lt;/li&gt;&#xA;&lt;li&gt;$W \in \mathbb{R}^{P \times C}$ is our weight matrix, where $C$ is the number of output classes&lt;/li&gt;&#xA;&lt;li&gt;$b \in \mathbb{R}^{1 \times C}$ is our bias vector&lt;/li&gt;&#xA;&lt;li&gt;$y \in \mathbb{R}^{N \times C}$ is our output logits&lt;/li&gt;&#xA;&lt;/ul&gt;&#xA;&lt;p&gt;the forward pass computes:&lt;/p&gt;</description>
+      <guid>/posts/backpropagation-math/</guid>
+      <description>&lt;p&gt;this is a companion post to &lt;a href=&#34;/posts/first-post/&#34;&gt;neural nets from scratch in rust&lt;/a&gt;, covering the mathematical foundations of backpropagation.&lt;/p&gt;&#xA;&lt;h1 id=&#34;the-setup&#34;&gt;the setup&lt;/h1&gt;&#xA;&lt;h2&gt;$ y = f(WX + b) $&lt;/h2&gt;&#xA;&lt;p&gt;the holy grail formula that underpins neural networks is just a linear transform that you then apply a differentiable nonlinear transformation to.&lt;/p&gt;&#xA;&lt;p&gt;lets consider a single layer neural network and define our shapes:&lt;/p&gt;&#xA;&lt;ul&gt;&#xA;&lt;li&gt;$X \in \mathbb{R}^{N \times P}$ is our input data, where $N$ is the number of samples and $P$ is the feature space dimension&lt;/li&gt;&#xA;&lt;li&gt;$W \in \mathbb{R}^{P \times C}$ is our weight matrix, where $C$ is the number of output classes&lt;/li&gt;&#xA;&lt;li&gt;$b \in \mathbb{R}^{1 \times C}$ is our bias vector&lt;/li&gt;&#xA;&lt;li&gt;$y \in \mathbb{R}^{N \times C}$ is our output logits&lt;/li&gt;&#xA;&lt;/ul&gt;&#xA;&lt;p&gt;the forward pass computes:&lt;/p&gt;</description>
     </item>
     <item>
       <title>neural nets from scratch in rust</title>
-      <link>//localhost:1313/posts/rust-neural-nets/</link>
+      <link>/posts/rust-neural-nets/</link>
       <pubDate>Fri, 09 Jan 2026 20:38:58 +0000</pubDate>
-      <guid>//localhost:1313/posts/rust-neural-nets/</guid>
-      <description>&lt;p&gt;its easy to make pytorch go brr and overfit MNIST with two hands tied behind your back, so i thought i would make it harder and overfit MNIST in my own library in rust, using nothing but the &lt;code&gt;std&lt;/code&gt; library.&lt;/p&gt;&#xA;&lt;p&gt;&lt;strong&gt;warning: i am not a rust developer, or even a low level developer at all, and have very little idea what i am doing.&lt;/strong&gt;&lt;/p&gt;&#xA;&lt;h1 id=&#34;the-matrix&#34;&gt;the matrix&lt;/h1&gt;&#xA;&lt;p&gt;&lt;img src=&#34;//localhost:1313/images/neo.png&#34; alt=&#34;neo&#34;&gt;&lt;/p&gt;&#xA;&lt;p&gt;karpathy&amp;rsquo;s already done the &lt;a href=&#34;https://github.com/karpathy/micrograd&#34;&gt;micrograd thing&lt;/a&gt;, where gradients and differentiation are done on the scalar value level, and i dont want to just carbon copy that, but i also dont want to do the full shebang with tensor ops, so i thought id meet in the middle with simple 2d matrices.&lt;/p&gt;</description>
+      <guid>/posts/rust-neural-nets/</guid>
+      <description>&lt;p&gt;its easy to make pytorch go brr and overfit MNIST with two hands tied behind your back, so i thought i would make it harder and overfit MNIST in my own library in rust, using nothing but the &lt;code&gt;std&lt;/code&gt; library.&lt;/p&gt;&#xA;&lt;p&gt;&lt;strong&gt;warning: i am not a rust developer, or even a low level developer at all, and have very little idea what i am doing.&lt;/strong&gt;&lt;/p&gt;&#xA;&lt;h1 id=&#34;the-matrix&#34;&gt;the matrix&lt;/h1&gt;&#xA;&lt;p&gt;&lt;img src=&#34;/images/neo.png&#34; alt=&#34;neo&#34;&gt;&lt;/p&gt;&#xA;&lt;p&gt;karpathy&amp;rsquo;s already done the &lt;a href=&#34;https://github.com/karpathy/micrograd&#34;&gt;micrograd thing&lt;/a&gt;, where gradients and differentiation are done on the scalar value level, and i dont want to just carbon copy that, but i also dont want to do the full shebang with tensor ops, so i thought id meet in the middle with simple 2d matrices.&lt;/p&gt;</description>
     </item>
   </channel>
 </rss>

@@ -2,27 +2,36 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
   <url>
-    <loc>//localhost:1313/posts/backpropagation-math/</loc>
+    <loc>/tags/chess/</loc>
+    <lastmod>2026-01-19T21:07:23+00:00</lastmod>
+  </url><url>
+    <loc>/posts/cockfish/</loc>
+    <lastmod>2026-01-19T21:07:23+00:00</lastmod>
+  </url><url>
+    <loc>/</loc>
+    <lastmod>2026-01-19T21:07:23+00:00</lastmod>
+  </url><url>
+    <loc>/tags/ml/</loc>
+    <lastmod>2026-01-19T21:07:23+00:00</lastmod>
+  </url><url>
+    <loc>/tags/neural-networks/</loc>
+    <lastmod>2026-01-19T21:07:23+00:00</lastmod>
+  </url><url>
+    <loc>/posts/</loc>
+    <lastmod>2026-01-19T21:07:23+00:00</lastmod>
+  </url><url>
+    <loc>/tags/</loc>
+    <lastmod>2026-01-19T21:07:23+00:00</lastmod>
+  </url><url>
+    <loc>/posts/backpropagation-math/</loc>
     <lastmod>2026-01-09T22:55:03+00:00</lastmod>
   </url><url>
-    <loc>//localhost:1313/</loc>
+    <loc>/tags/math/</loc>
     <lastmod>2026-01-09T22:55:03+00:00</lastmod>
   </url><url>
-    <loc>//localhost:1313/tags/math/</loc>
-    <lastmod>2026-01-09T22:55:03+00:00</lastmod>
-  </url><url>
-    <loc>//localhost:1313/tags/ml/</loc>
-    <lastmod>2026-01-09T22:55:03+00:00</lastmod>
-  </url><url>
-    <loc>//localhost:1313/posts/</loc>
-    <lastmod>2026-01-09T22:55:03+00:00</lastmod>
-  </url><url>
-    <loc>//localhost:1313/tags/</loc>
-    <lastmod>2026-01-09T22:55:03+00:00</lastmod>
-  </url><url>
-    <loc>//localhost:1313/posts/rust-neural-nets/</loc>
+    <loc>/posts/rust-neural-nets/</loc>
     <lastmod>2026-01-09T20:38:58+00:00</lastmod>
   </url><url>
-    <loc>//localhost:1313/categories/</loc>
+    <loc>/categories/</loc>
   </url>
 </urlset>
