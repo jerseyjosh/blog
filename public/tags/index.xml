@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Tags on jmg</title>
+    <link>/tags/</link>
+    <description>Recent content in Tags on jmg</description>
+    <generator>Hugo</generator>
+    <language>en-us</language>
+    <lastBuildDate>Fri, 09 Jan 2026 22:55:03 +0000</lastBuildDate>
+    <atom:link href="/tags/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Math</title>
+      <link>/tags/math/</link>
+      <pubDate>Fri, 09 Jan 2026 22:55:03 +0000</pubDate>
+      <guid>/tags/math/</guid>
+      <description></description>
+    </item>
+    <item>
+      <title>Ml</title>
+      <link>/tags/ml/</link>
+      <pubDate>Fri, 09 Jan 2026 22:55:03 +0000</pubDate>
+      <guid>/tags/ml/</guid>
+      <description></description>
+    </item>
+  </channel>
+</rss>

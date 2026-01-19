@@ -1,0 +1,49 @@
+baseURL = ''
+languageCode = 'en-us'
+title = '<jmg>'
+theme = 'terminal'
+
+[markup]
+  [markup.goldmark]
+    [markup.goldmark.extensions]
+      [markup.goldmark.extensions.passthrough]
+        enable = true
+        [markup.goldmark.extensions.passthrough.delimiters]
+          block = [['$$', '$$']]
+          inline = [['$', '$']]
+
+[params]
+  contentTypeName = "posts"
+  showMenuItems = 3
+  fullWidthTheme = false
+  centerTheme = true
+  customCSS = ["css/custom.css"]
+  math = true
+
+[languages]
+  [languages.en]
+    title = "jmg"
+    subtitle = "quant + ml + code"
+    keywords = ""
+    menuMore = "Show more"
+    readMore = "Read more"
+    readOtherPosts = "Read other posts"
+
+    [languages.en.params.logo]
+      logoText = "<jmg>"
+      logoHomeLink = "/"
+
+    [[languages.en.menu.main]]
+      identifier = "posts"
+      name = "posts"
+      url = "/posts"
+
+    [[languages.en.menu.main]]
+      identifier = "tags"
+      name = "tags"
+      url = "/tags"
+
+    [[languages.en.menu.main]]
+      identifier = "twitter"
+      name = "twitter"
+      url = "https://x.com/flowuninformed"

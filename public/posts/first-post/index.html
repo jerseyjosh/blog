@@ -1,0 +1,419 @@
+<!DOCTYPE html>
+<html lang="en">
+<head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=1313&amp;path=livereload" data-no-instant defer></script>
+  
+    <title>neural nets from scratch in rust :: jmg</title>
+  
+  <meta http-equiv="content-type" content="text/html; charset=utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="description" content="cracked devs on twitter are writing ML libraries from scratch in C" />
+<meta name="keywords" content="" />
+
+  <meta name="robots" content="noodp" />
+
+<link rel="canonical" href="//localhost:1313/posts/first-post/" />
+
+
+
+
+
+  
+  <link rel="stylesheet" href="//localhost:1313/css/buttons.min.86f6b4c106b6c6eb690ae5203d36b442c1f66f718ff4e8164fa86cf6c61ad641.css">
+
+  
+  <link rel="stylesheet" href="//localhost:1313/css/code.min.d529ea4b2fb8d34328d7d31afc5466d5f7bc2f0bc9abdd98b69385335d7baee4.css">
+
+  
+  <link rel="stylesheet" href="//localhost:1313/css/fonts.min.5bb7ed13e1d00d8ff39ea84af26737007eb5051b157b86fc24487c94f3dc8bbe.css">
+
+  
+  <link rel="stylesheet" href="//localhost:1313/css/footer.min.eb8dfc2c6a7eafa36cd3ba92d63e69e849e2200e0002a228d137f236b09ecd75.css">
+
+  
+  <link rel="stylesheet" href="//localhost:1313/css/gist.min.a751e8b0abe1ba8bc53ced52a38b19d8950fe78ca29454ea8c2595cf26aad5c0.css">
+
+  
+  <link rel="stylesheet" href="//localhost:1313/css/header.min.75c7eb0e2872d95ff48109c6647d0223a38db52e2561dd87966eb5fc7c6bdac6.css">
+
+  
+  <link rel="stylesheet" href="//localhost:1313/css/main.min.36833afd348409fc6c3d09d0897c5833d9d5bf1ff31f5e60ea3ee42ce2b1268c.css">
+
+  
+  <link rel="stylesheet" href="//localhost:1313/css/menu.min.3c17467ebeb3d38663dce68f71f519901124fa5cbb4519b2fb0667a21e9aca39.css">
+
+  
+  <link rel="stylesheet" href="//localhost:1313/css/pagination.min.bbb986dbce00a5ce5aca0504b7925fc1c581992a4bf57f163e5d69cc1db7d836.css">
+
+  
+  <link rel="stylesheet" href="//localhost:1313/css/post.min.e6dddd258e64c83e05cec0cd49c05216742d42fc8ecbfbe6b67083412b609bd3.css">
+
+  
+  <link rel="stylesheet" href="//localhost:1313/css/syntax.min.a0773cce9310cb6d8ed23e50f005448facf29a53001b57e038828daa466b25c0.css">
+
+  
+  <link rel="stylesheet" href="//localhost:1313/css/terminal.min.e24bf84cafb9e94502324a0c4264d65e9ed1870838db3e47393dfaa83dd5abb4.css">
+
+  
+  <link rel="stylesheet" href="//localhost:1313/css/terms.min.b81791663c3790e738e571cdbf802312390d30e4b1d8dc9d814a5b5454d0ac11.css">
+
+
+
+
+<link rel="stylesheet" href="//localhost:1313/style.css">
+
+
+<link rel="shortcut icon" href="//localhost:1313/favicon.png">
+<link rel="apple-touch-icon" href="//localhost:1313/apple-touch-icon.png">
+
+
+<meta name="twitter:card" content="summary" />
+
+
+
+<meta property="og:locale" content="en" />
+<meta property="og:type" content="article" />
+<meta property="og:title" content="neural nets from scratch in rust">
+<meta property="og:description" content="cracked devs on twitter are writing ML libraries from scratch in C" />
+<meta property="og:url" content="//localhost:1313/posts/first-post/" />
+<meta property="og:site_name" content="jmg" />
+
+  <meta property="og:image" content="//localhost:1313/og-image.png">
+
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="627">
+
+
+  <meta property="article:published_time" content="2026-01-09 20:38:58 &#43;0000 UTC" />
+
+
+
+
+
+
+
+
+
+
+  <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@4/tex-mml-chtml.js"></script>
+
+<script>
+  MathJax = {
+    tex: {
+      displayMath: [['$$', '$$']],
+      inlineMath: [['$', '$']]
+    },
+    loader:{
+      load: ['ui/safe']
+    },
+  };
+</script>
+
+
+
+
+</head>
+<body>
+
+
+<div class="container center">
+
+  <header class="header">
+  <div class="header__inner">
+    <div class="header__logo">
+      <a href="/">
+  <div class="logo">
+    &lt;jmg&gt;
+  </div>
+</a>
+
+    </div>
+    
+      <ul class="menu menu--mobile">
+  <li class="menu__trigger">Menu&nbsp;▾</li>
+  <li>
+    <ul class="menu__dropdown">
+      
+        
+          <li><a href="/posts">posts</a></li>
+        
+      
+        
+          <li><a href="/tags">tags</a></li>
+        
+      
+        
+          <li><a href="https://x.com/flowuninformed">twitter</a></li>
+        
+      
+      
+    </ul>
+  </li>
+</ul>
+
+    
+    
+  </div>
+  
+    <nav class="navigation-menu">
+  <ul class="navigation-menu__inner menu--desktop">
+    
+      
+        
+          <li><a href="/posts" >posts</a></li>
+        
+      
+        
+          <li><a href="/tags" >tags</a></li>
+        
+      
+        
+          <li><a href="https://x.com/flowuninformed" >twitter</a></li>
+        
+      
+      
+    
+  </ul>
+</nav>
+
+  
+</header>
+
+
+  <div class="content">
+    
+<article class="post">
+  <h1 class="post-title">
+    <a href="//localhost:1313/posts/first-post/">neural nets from scratch in rust</a>
+  </h1>
+  <div class="post-meta"><time class="post-date">2026-01-09</time><span class="post-author">josh</span><span class="post-reading-time">7 min read (1384 words)</span></div>
+
+  
+    <span class="post-tags">
+      
+      #<a href="//localhost:1313/tags/ml/">ml</a>&nbsp;
+      
+    </span>
+  
+  
+
+
+  
+
+  <div class="post-content"><div>
+        <p>its easy to make pytorch go brr and overfit MNIST with two hands tied behind your back, so i thought i would make it harder and overfit MNIST in my own library in rust, using nothing but the <code>std</code> library.</p>
+<p><strong>warning: i am not a rust developer, or even a low level developer at all, and have very little idea what i am doing.</strong></p>
+<h1 id="the-matrix">the matrix<a href="#the-matrix" class="hanchor" ariaLabel="Anchor">#</a> </h1>
+<p><img src="/images/neo.png" alt="neo"></p>
+<p>karpathy&rsquo;s already done the <a href="https://github.com/karpathy/micrograd">micrograd thing</a>, where gradients and differentiation are done on the scalar value level, and i dont want to just carbon copy that, but i also dont want to do the full shebang with tensor ops, so i thought id meet in the middle with simple 2d matrices.</p>
+<p>a matrix is just a collection of values (lets assume f32 globally), stored in rows and columns.</p>
+<p>coming from python/numpy, matrix rows are just lists of values, and a matrix is just a list of rows, so it would be easy to assume that a matrix should hold this structure in memory.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span>my_nice_matrix <span style="color:#f92672">=</span> np<span style="color:#f92672">.</span>array([
+</span></span><span style="display:flex;"><span>    [<span style="color:#ae81ff">1</span>, <span style="color:#ae81ff">2</span>, <span style="color:#ae81ff">3</span>],
+</span></span><span style="display:flex;"><span>    [<span style="color:#ae81ff">4</span>, <span style="color:#ae81ff">5</span>, <span style="color:#ae81ff">6</span>],
+</span></span><span style="display:flex;"><span>    [<span style="color:#ae81ff">7</span>, <span style="color:#ae81ff">8</span>, <span style="color:#ae81ff">9</span>]
+</span></span><span style="display:flex;"><span>])
+</span></span></code></pre></div><div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-rust" data-lang="rust"><span style="display:flex;"><span><span style="color:#66d9ef">pub</span> <span style="color:#66d9ef">struct</span> <span style="color:#a6e22e">Matrix</span> {
+</span></span><span style="display:flex;"><span>    nrows: <span style="color:#66d9ef">usize</span>,
+</span></span><span style="display:flex;"><span>    ncols: <span style="color:#66d9ef">usize</span>,
+</span></span><span style="display:flex;"><span>    data: Vec<span style="color:#f92672">&lt;</span>Vec<span style="color:#f92672">&lt;</span><span style="color:#66d9ef">f32</span><span style="color:#f92672">&gt;&gt;</span>
+</span></span><span style="display:flex;"><span>}
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">impl</span> Matrix {
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">pub</span> <span style="color:#66d9ef">fn</span> <span style="color:#a6e22e">get</span>(<span style="color:#f92672">&amp;</span>self, row: <span style="color:#66d9ef">usize</span>, col: <span style="color:#66d9ef">usize</span>) -&gt; <span style="color:#66d9ef">f32</span> {
+</span></span><span style="display:flex;"><span>        <span style="color:#a6e22e">assert!</span>(row <span style="color:#f92672">&lt;</span> self.nrows, <span style="color:#e6db74">&#34;row out of bounds&#34;</span>);
+</span></span><span style="display:flex;"><span>        <span style="color:#a6e22e">assert!</span>(col <span style="color:#f92672">&lt;</span> self.ncols, <span style="color:#e6db74">&#34;col out of bounds&#34;</span>);
+</span></span><span style="display:flex;"><span>        self.data[row][col]
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><p>although this library isn&rsquo;t going to be topping any benchmarks any time soon, i already know this is setting us up for bad performance. a rust <code>Vec</code> is a heap allocated, growable array, and the program sees it as 3 components on the stack:</p>
+<ul>
+<li>a pointer to the data on the heap</li>
+<li>how long the data currently is</li>
+<li>what capacity the data is allowed to have</li>
+</ul>
+<p>so if we declare a <code>Vec&lt;Vec&lt;f32&gt;&gt;</code>, we&rsquo;re going to have pointers pointing to pointers pointing to data, which even to my small python brain seems inefficient.</p>
+<p>a better representation is keeping one <code>Vec</code> that has all the data nicely arranged, and we just handle the indexing algebra ourselves.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-rust" data-lang="rust"><span style="display:flex;"><span><span style="color:#66d9ef">pub</span> <span style="color:#66d9ef">struct</span> <span style="color:#a6e22e">Matrix</span> {
+</span></span><span style="display:flex;"><span>    nrows: <span style="color:#66d9ef">usize</span>,
+</span></span><span style="display:flex;"><span>    ncols: <span style="color:#66d9ef">usize</span>,
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">pub</span> data: Vec<span style="color:#f92672">&lt;</span><span style="color:#66d9ef">f32</span><span style="color:#f92672">&gt;</span>,
+</span></span><span style="display:flex;"><span>}
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">impl</span> Matrix {
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">pub</span> <span style="color:#66d9ef">fn</span> <span style="color:#a6e22e">get</span>(<span style="color:#f92672">&amp;</span>self, row: <span style="color:#66d9ef">usize</span>, col: <span style="color:#66d9ef">usize</span>) -&gt; <span style="color:#66d9ef">f32</span> {
+</span></span><span style="display:flex;"><span>        <span style="color:#a6e22e">assert!</span>(row <span style="color:#f92672">&lt;</span> self.nrows, <span style="color:#e6db74">&#34;row out of bounds&#34;</span>);
+</span></span><span style="display:flex;"><span>        <span style="color:#a6e22e">assert!</span>(col <span style="color:#f92672">&lt;</span> self.ncols, <span style="color:#e6db74">&#34;col out of bounds&#34;</span>);
+</span></span><span style="display:flex;"><span>        self.data[row <span style="color:#f92672">*</span> self.ncols <span style="color:#f92672">+</span> col]
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><p>next we need those nice matrix operations that let us do things we&rsquo;re likely going to want to do, primarily matrix multiplication, transposition, and simple elementwise operations.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-rust" data-lang="rust"><span style="display:flex;"><span><span style="color:#66d9ef">impl</span> Matrix {
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">pub</span> <span style="color:#66d9ef">fn</span> <span style="color:#a6e22e">add</span>(<span style="color:#f92672">&amp;</span>self, rhs: <span style="color:#66d9ef">&amp;</span><span style="color:#a6e22e">Matrix</span>) -&gt; <span style="color:#a6e22e">Matrix</span> {
+</span></span><span style="display:flex;"><span>        <span style="color:#a6e22e">assert!</span>(
+</span></span><span style="display:flex;"><span>            self.shape() <span style="color:#f92672">==</span> rhs.shape(),
+</span></span><span style="display:flex;"><span>            <span style="color:#e6db74">&#34;shape mismatch in add&#34;</span>
+</span></span><span style="display:flex;"><span>        );
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">let</span> <span style="color:#66d9ef">mut</span> data <span style="color:#f92672">=</span> Vec::with_capacity(self.data.len());
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">for</span> i <span style="color:#66d9ef">in</span> <span style="color:#ae81ff">0</span><span style="color:#f92672">..</span>self.data.len() {
+</span></span><span style="display:flex;"><span>            data.push(self.data[i] <span style="color:#f92672">+</span> rhs.data[i]);
+</span></span><span style="display:flex;"><span>        }
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>        Matrix {
+</span></span><span style="display:flex;"><span>            nrows: <span style="color:#a6e22e">self</span>.nrows,
+</span></span><span style="display:flex;"><span>            ncols: <span style="color:#a6e22e">self</span>.ncols,
+</span></span><span style="display:flex;"><span>            data,
+</span></span><span style="display:flex;"><span>        }
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">pub</span> <span style="color:#66d9ef">fn</span> <span style="color:#a6e22e">transpose</span>(<span style="color:#f92672">&amp;</span>self) -&gt; <span style="color:#a6e22e">Matrix</span> {
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">let</span> <span style="color:#66d9ef">mut</span> data <span style="color:#f92672">=</span> <span style="color:#a6e22e">vec!</span>[<span style="color:#ae81ff">0.0</span>; self.nrows <span style="color:#f92672">*</span> self.ncols];
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">for</span> r <span style="color:#66d9ef">in</span> <span style="color:#ae81ff">0</span><span style="color:#f92672">..</span>self.nrows {
+</span></span><span style="display:flex;"><span>            <span style="color:#66d9ef">for</span> c <span style="color:#66d9ef">in</span> <span style="color:#ae81ff">0</span><span style="color:#f92672">..</span>self.ncols {
+</span></span><span style="display:flex;"><span>                data[c <span style="color:#f92672">*</span> self.nrows <span style="color:#f92672">+</span> r] <span style="color:#f92672">=</span>
+</span></span><span style="display:flex;"><span>                    self.data[r <span style="color:#f92672">*</span> self.ncols <span style="color:#f92672">+</span> c];
+</span></span><span style="display:flex;"><span>            }
+</span></span><span style="display:flex;"><span>        }
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>        Matrix {
+</span></span><span style="display:flex;"><span>            nrows: <span style="color:#a6e22e">self</span>.ncols,
+</span></span><span style="display:flex;"><span>            ncols: <span style="color:#a6e22e">self</span>.nrows,
+</span></span><span style="display:flex;"><span>            data,
+</span></span><span style="display:flex;"><span>        }
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><p>allocating new memory for outputs is not the most efficient way of doing this i&rsquo;m sure, but we&rsquo;re just going to <code>--release</code> and cross our fingers and pray at the end.</p>
+<p>overall, elementwise operations are easy and transposition is easy with a bit of thought, but lets flesh out the matrix multiplication for the sake of trying to remember my uni linear algebra.</p>
+<p>the elements of a product of two matrices $X \in \mathbb{R}^{n \times m}$ and $Y \in \mathbb{R}^{m \times p}$ are given by:
+$(XY)_{ij} = \sum_{k=1}^{m}X_{ik}Y_{kj}$</p>
+<p>i.e. for fixed $(i,j)$, we introduce a summation variable $k$ to dot product the row vectors of $X$ and the column vectors of $Y$.</p>
+<p>this summation variable means matrix multiplication is an $O(nmp)$ operation (or $O(n^3)$ for square matrices), making it expensive unless you are Jensen Huang.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-rust" data-lang="rust"><span style="display:flex;"><span>    <span style="color:#66d9ef">pub</span> <span style="color:#66d9ef">fn</span> <span style="color:#a6e22e">matmul</span>(<span style="color:#f92672">&amp;</span>self, rhs: <span style="color:#66d9ef">&amp;</span><span style="color:#a6e22e">Matrix</span>) -&gt; <span style="color:#a6e22e">Matrix</span> {
+</span></span><span style="display:flex;"><span>        <span style="color:#a6e22e">assert!</span>(
+</span></span><span style="display:flex;"><span>            self.ncols <span style="color:#f92672">==</span> rhs.nrows,
+</span></span><span style="display:flex;"><span>            <span style="color:#e6db74">&#34;shape mismatch in matmul&#34;</span>
+</span></span><span style="display:flex;"><span>        );
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">let</span> <span style="color:#66d9ef">mut</span> out <span style="color:#f92672">=</span> <span style="color:#a6e22e">vec!</span>[<span style="color:#ae81ff">0.0</span>; self.nrows <span style="color:#f92672">*</span> rhs.ncols];
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">for</span> i <span style="color:#66d9ef">in</span> <span style="color:#ae81ff">0</span><span style="color:#f92672">..</span>self.nrows {
+</span></span><span style="display:flex;"><span>            <span style="color:#66d9ef">for</span> k <span style="color:#66d9ef">in</span> <span style="color:#ae81ff">0</span><span style="color:#f92672">..</span>self.ncols {
+</span></span><span style="display:flex;"><span>                <span style="color:#66d9ef">let</span> a <span style="color:#f92672">=</span> self.data[i <span style="color:#f92672">*</span> self.ncols <span style="color:#f92672">+</span> k];
+</span></span><span style="display:flex;"><span>                <span style="color:#66d9ef">let</span> rhs_row <span style="color:#f92672">=</span> k <span style="color:#f92672">*</span> rhs.ncols;
+</span></span><span style="display:flex;"><span>                <span style="color:#66d9ef">let</span> out_row <span style="color:#f92672">=</span> i <span style="color:#f92672">*</span> rhs.ncols;
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>                <span style="color:#66d9ef">for</span> j <span style="color:#66d9ef">in</span> <span style="color:#ae81ff">0</span><span style="color:#f92672">..</span>rhs.ncols {
+</span></span><span style="display:flex;"><span>                    out[out_row <span style="color:#f92672">+</span> j] <span style="color:#f92672">+=</span> a <span style="color:#f92672">*</span> rhs.data[rhs_row <span style="color:#f92672">+</span> j];
+</span></span><span style="display:flex;"><span>                }
+</span></span><span style="display:flex;"><span>            }
+</span></span><span style="display:flex;"><span>        }
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>        Matrix {
+</span></span><span style="display:flex;"><span>            nrows: <span style="color:#a6e22e">self</span>.nrows,
+</span></span><span style="display:flex;"><span>            ncols: <span style="color:#a6e22e">rhs</span>.ncols,
+</span></span><span style="display:flex;"><span>            data: <span style="color:#a6e22e">out</span>,
+</span></span><span style="display:flex;"><span>        }
+</span></span><span style="display:flex;"><span>    }
+</span></span></code></pre></div><p>the order of the loops in the summation is also somewhat important, due to how we decide to index our underlying data vector. because we are indexing rows before columns, we are assuming our data is in a <em>row-major</em> format, so looping over the k before the j allows the cpu to have a more contiguous view of the data in memory (something something cache locality).</p>
+<p>now we&rsquo;ve got the simple ops over, we can start with the AI.</p>
+<h1 id="the-neural-bit">the neural bit<a href="#the-neural-bit" class="hanchor" ariaLabel="Anchor">#</a> </h1>
+<h2>$ y = f(WX + b) $</h2>
+<p>the holy grail formula that underpins neural networks is just a linear transform that you then apply a differentiable nonlinear transformation to.</p>
+<p>doing this over and over again in sequence whilst gradually tweaking the linear weights is what gives us juicy learnable nonlinear transformations.</p>
+<p>so how do we know how to tweak the weights?</p>
+<p><strong>backpropagation</strong>.</p>
+<p>lets consider a single layer neural network as in the formula above, and lets define our shapes:</p>
+<ul>
+<li>$X \in \mathbb{R}^{N \times P}$ is our input data, where $N$ is the number of samples and $P$ is the feature space dimension</li>
+<li>$W \in \mathbb{R}^{P \times C}$ is our weight matrix, where $C$ is the number of output classes</li>
+<li>$b \in \mathbb{R}^{1 \times C}$ is our bias vector</li>
+<li>$y \in \mathbb{R}^{N \times C}$ is our output logits</li>
+</ul>
+<p>the forward pass computes:</p>
+<p>$$z = f(XW + b$)$</p>
+<p>where $z \in \mathbb{R}^{N \times C}$</p>
+<p>for some non-linear activation function $f$</p>
+<p>now we have $N$ row vectors, one for each of our samples, each containing $C$ <em>scores</em>, one for each of our classification targets.</p>
+<p>to make these <em>scores</em> interpretable probabilistically, we apply a transform that maps them to somewhere between 0 and 1, maintaining their relative distance to each other.</p>
+$$y_i = \text{softmax}(z_i) = \frac{e^{z_i}}{\sum_{j=1}^{C} e^{z_j}}$$<h2 id="the-loss-function">the loss function<a href="#the-loss-function" class="hanchor" ariaLabel="Anchor">#</a> </h2>
+<p>for multi-class classification, we use the cross-entropy loss. given true labels $t \in \{0, 1, ..., C-1\}^N$ (one label per sample), we first convert them to one-hot vectors $T \in \mathbb{R}^{N \times C}$, where $T_{ij} = 1$ if sample $i$ has label $j$, and $0$ otherwise.</p>
+<p>the cross-entropy loss is:</p>
+$$L = -\frac{1}{N}\sum_{i=1}^{N}\sum_{j=1}^{C} T_{ij} \log(y_{ij})$$<p>or more compactly:</p>
+$$L = -\frac{1}{N}\sum_{i=1}^{N} \log(y_{i,t_i})$$<p>where $t_i$ is the true class label for sample $i$.</p>
+<p><strong>why cross-entropy?</strong> cross-entropy comes from information theory and measures the difference between two probability distributions. if $T$ is the true distribution (one-hot encoded labels) and $y$ is our predicted distribution, cross-entropy measures how many bits of information we need on average to encode the true distribution using our predicted distribution.</p>
+<p>when our predictions match the true labels perfectly, cross-entropy equals the entropy of the true distribution. when our predictions are wrong, cross-entropy is larger - the difference is called the KL divergence. minimizing cross-entropy is equivalent to minimizing KL divergence between predicted and true distributions, which is exactly what we want.</p>
+<h2 id="backpropagation">backpropagation<a href="#backpropagation" class="hanchor" ariaLabel="Anchor">#</a> </h2>
+<p>now for the fun part - computing gradients. we need $\frac{\partial L}{\partial W}$ and $\frac{\partial L}{\partial b}$ to update our parameters.</p>
+<p>using the chain rule:</p>
+$$\frac{\partial L}{\partial W} = \frac{\partial L}{\partial z} \cdot \frac{\partial z}{\partial W}$$<p>the gradient of cross-entropy loss with respect to the logits after softmax has a beautiful closed form:</p>
+$$\frac{\partial L}{\partial z} = \frac{1}{N}(y - T)$$<p>where $y$ are our softmax predictions and $T$ are the one-hot encoded targets. this is why softmax + cross-entropy is so popular - the gradient simplifies elegantly.</p>
+<p>now we need $\frac{\partial z}{\partial W}$. recall that $z = XW + b$, so:</p>
+$$\frac{\partial z}{\partial W} = X^T$$<p>putting it together:</p>
+$$\frac{\partial L}{\partial W} = \frac{1}{N}X^T(y - T)$$<p>similarly for the bias:</p>
+$$\frac{\partial L}{\partial b} = \frac{1}{N}\sum_{i=1}^{N}(y_i - T_i) = \frac{1}{N}\mathbf{1}^T(y - T)$$<p>where $\mathbf{1}$ is a vector of ones with length $N$.</p>
+<h2 id="gradient-descent">gradient descent<a href="#gradient-descent" class="hanchor" ariaLabel="Anchor">#</a> </h2>
+<p>with these gradients, we can update our parameters:</p>
+$$W \leftarrow W - \eta \frac{\partial L}{\partial W}$$<p>
+</p>
+$$b \leftarrow b - \eta \frac{\partial L}{\partial b}$$<p>where $\eta$ is the learning rate, a hyperparameter that controls how big our steps are.</p>
+<p>repeat this process enough times (forward pass → compute loss → backward pass → update weights) and your network learns to classify!</p>
+
+      </div></div>
+
+  
+    
+<div class="pagination">
+  <div class="pagination__title">
+    <span class="pagination__title-h"></span>
+    <hr />
+  </div>
+  <div class="pagination__buttons">
+    
+      <a href="//localhost:1313/posts/backpropagation-math/" class="button inline prev">
+        &lt; [<span class="button__text">Backpropagation Math</span>]
+      </a>
+    
+    
+    
+  </div>
+</div>
+
+
+  
+
+  
+    
+
+  
+</article>
+
+  </div>
+
+  
+    <footer class="footer">
+  <div class="footer__inner">
+    
+      <div class="copyright">
+        <span>© 2026 Powered by <a href="https://gohugo.io">Hugo</a></span>
+    
+      <span>:: <a href="https://github.com/panr/hugo-theme-terminal" target="_blank">Theme</a> made by <a href="https://github.com/panr" target="_blank">panr</a></span>
+      </div>
+  </div>
+</footer>
+
+
+
+
+
+
+<script type="text/javascript" src="/bundle.min.js"></script>
+
+
+
+
+
+  
+</div>
+
+</body>
+</html>

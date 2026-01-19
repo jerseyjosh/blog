@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Tutorial on &lt;jmg&gt;</title>
+    <link>//localhost:1313/tags/tutorial/</link>
+    <description>Recent content in Tutorial on &lt;jmg&gt;</description>
+    <generator>Hugo</generator>
+    <language>en-us</language>
+    <lastBuildDate>Fri, 09 Jan 2026 20:38:58 +0000</lastBuildDate>
+    <atom:link href="//localhost:1313/tags/tutorial/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>First Post</title>
+      <link>//localhost:1313/posts/first-post/</link>
+      <pubDate>Fri, 09 Jan 2026 20:38:58 +0000</pubDate>
+      <guid>//localhost:1313/posts/first-post/</guid>
+      <description>&lt;h1 id=&#34;getting-started-with-hugo&#34;&gt;Getting Started with Hugo&lt;/h1&gt;&#xA;&lt;p&gt;Welcome to my first blog post! I&amp;rsquo;ve just set up this site using Hugo and the Terminal theme, and I&amp;rsquo;m really excited about how it looks.&lt;/p&gt;&#xA;&lt;h2 id=&#34;why-hugo&#34;&gt;Why Hugo?&lt;/h2&gt;&#xA;&lt;p&gt;Hugo is incredibly fast and simple to use. Here are some things I love about it:&lt;/p&gt;&#xA;&lt;ul&gt;&#xA;&lt;li&gt;&lt;strong&gt;Lightning fast builds&lt;/strong&gt; - even with hundreds of pages&lt;/li&gt;&#xA;&lt;li&gt;&lt;strong&gt;No dependencies&lt;/strong&gt; - just a single binary&lt;/li&gt;&#xA;&lt;li&gt;&lt;strong&gt;Great themes&lt;/strong&gt; - like this Terminal theme!&lt;/li&gt;&#xA;&lt;li&gt;&lt;strong&gt;Markdown support&lt;/strong&gt; - write content naturally&lt;/li&gt;&#xA;&lt;/ul&gt;&#xA;&lt;h2 id=&#34;code-examples&#34;&gt;Code Examples&lt;/h2&gt;&#xA;&lt;p&gt;The syntax highlighting looks great too:&lt;/p&gt;</description>
+    </item>
+  </channel>
+</rss>

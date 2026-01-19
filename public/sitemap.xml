@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
+  xmlns:xhtml="http://www.w3.org/1999/xhtml">
+  <url>
+    <loc>/posts/backpropagation-math/</loc>
+    <lastmod>2026-01-09T22:55:03+00:00</lastmod>
+  </url><url>
+    <loc>/</loc>
+    <lastmod>2026-01-09T22:55:03+00:00</lastmod>
+  </url><url>
+    <loc>/tags/math/</loc>
+    <lastmod>2026-01-09T22:55:03+00:00</lastmod>
+  </url><url>
+    <loc>/tags/ml/</loc>
+    <lastmod>2026-01-09T22:55:03+00:00</lastmod>
+  </url><url>
+    <loc>/posts/</loc>
+    <lastmod>2026-01-09T22:55:03+00:00</lastmod>
+  </url><url>
+    <loc>/tags/</loc>
+    <lastmod>2026-01-09T22:55:03+00:00</lastmod>
+  </url><url>
+    <loc>/posts/rust-neural-nets/</loc>
+    <lastmod>2026-01-09T20:38:58+00:00</lastmod>
+  </url><url>
+    <loc>/categories/</loc>
+  </url>
+</urlset>
